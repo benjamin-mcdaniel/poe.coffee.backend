@@ -1,0 +1,14 @@
+name: Hello World get_tags
+
+on: [push]
+
+jobs:
+  hello-world:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Print Hello World
+      run: echo "Hello World from Workflow get_tags"
