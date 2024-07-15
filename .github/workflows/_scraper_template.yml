@@ -63,4 +63,4 @@ jobs:
         BUCKET_NAME: ${{ secrets.bucketName }}
       run: |
         source modules/_scraper_template/env/bin/activate
-        python modules/_scraper_template/supabase/upload_image.py
+        python modules/_scraper_template/supabase/upload_to_supabase.py
