@@ -1,4 +1,4 @@
-name: "_Bs4_POE_Wiki_Test(auto)"
+name: "_Bs4_Test"
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  Testing-POE-Wiki-Scraper:
+  run-scraper:
     runs-on: ubuntu-latest
     environment: template_scraper
 
@@ -31,7 +31,37 @@ jobs:
 
     - name: Run Test Script
       env:
+        # Load environment variables from GitHub secrets
         SCRAPE_URL: ${{ vars.SCRAPE_URL }}
       run: |
         source modules/_scraper_template/env/bin/activate
         python modules/_scraper_template/test.py
+
+  upload-to-supabase:
+    runs-on: ubuntu-latest
+    environment: template_scraper
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        cd modules/_scraper_template
+        python -m venv env
+        source env/bin/activate
+        pip install -r requirements.txt
+
+    - name: Upload Image to Supabase
+      env:
+        SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+        SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+        BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
+      run: |
+        source modules/_scraper_template/env/bin/activate
+        python modules/_scraper_template/supabase/upload_to_supabase.py
