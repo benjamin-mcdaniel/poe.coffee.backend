@@ -1,4 +1,4 @@
-name: "_Bs4_Test"
+name: "_Bs4_POE_Wiki_Test(auto)"
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  run-scraper:
+  Testing-POE-Wiki-Scraper:
     runs-on: ubuntu-latest
     environment: template_scraper
 
