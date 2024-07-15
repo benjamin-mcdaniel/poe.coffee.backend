@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  run-scraper:
+  test-run-scraper:
     runs-on: ubuntu-latest
     environment: template_scraper
 
