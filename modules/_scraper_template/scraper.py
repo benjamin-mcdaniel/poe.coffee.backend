@@ -1,13 +1,8 @@
 import os
-from dotenv import load_dotenv
 import requests
 from bs4 import BeautifulSoup
 
-# Load environment variables from a .env file
-load_dotenv()
-
 # Access environment variables
-
 scrape_url = os.getenv('SCRAPE_URL')
 
 if not scrape_url:

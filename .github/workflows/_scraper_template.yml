@@ -32,9 +32,8 @@ jobs:
     - name: Run Scraper Script
       env:
         # Load environment variables from GitHub secrets
-        KEY: ${{ secrets.KEY }}
-        ANOTHER_KEY: ${{ secrets.ANOTHER_KEY }}
-        SCRAPE_URL: ${{ secrets.SCRAPE_URL }}
+
+        SCRAPE_URL: ${{ vars.SCRAPE_URL }}
       run: |
         source modules/_scraper_template/env/bin/activate
         python modules/_scraper_template/scraper.py
