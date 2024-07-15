@@ -21,7 +21,7 @@ def generate_image():
 
 def upload_image_to_supabase(image_data, image_name):
     supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
-    response = supabase.storage.from_(BUCKET_NAME).upload(image_name, image_data)
+    response = supabase.storage.from_(BUCKET_NAME).upload(image_name, image_data, {"content-type": "image/png"})
     return response
 
 if __name__ == "__main__":
