@@ -1,4 +1,4 @@
-name: Run Scraper Script
+name: "_Bs4_Test"
 
 on:
   push:
