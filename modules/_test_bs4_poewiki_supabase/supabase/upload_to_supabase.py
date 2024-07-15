@@ -21,6 +21,15 @@ def generate_image():
 
 def upload_image_to_supabase(image_data, image_name):
     supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
+    
+    # Try deleting the existing image first
+    try:
+        delete_response = supabase.storage.from_(BUCKET_NAME).remove([image_name])
+        print(f"Deleted existing image: {delete_response}")
+    except Exception as e:
+        print(f"No existing image to delete or error deleting: {e}")
+    
+    # Upload the new image
     response = supabase.storage.from_(BUCKET_NAME).upload(image_name, image_data, {"content-type": "image/png"})
     return response
 
