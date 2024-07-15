@@ -1,9 +1,23 @@
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import unquote
+import difflib
 
 base_url = "https://www.poewiki.net"
 category_url = f"{base_url}/wiki/Category:Amulet_icons"
+
+expected_images = [
+    "Araku_Tiki_inventory_icon.png",
+    "Ashes_of_the_Stars_inventory_icon.png",
+    "Astramentis_inventory_icon.png",
+    "Astramentis_race_season_2_inventory_icon.png",
+    "Astrolabe_Amulet_inventory_icon.png",
+    "Atziri's_Foible_inventory_icon.png",
+    "Atziri's_Foible_pvp_season_2_inventory_icon.png",
+    "Atziri's_Foible_race_season_4_inventory_icon.png",
+    "Aul's_Uprising_inventory_icon.png",
+    "Badge_of_the_Brotherhood_inventory_icon.png"
+]
 
 def get_image_names(url):
     response = requests.get(url)
@@ -37,8 +51,14 @@ def main():
     for subcategory in subcategories:
         image_names.extend(get_image_names(subcategory))
 
-    for image in image_names:
-        print(image)
+    matches = sum(1 for img in image_names if any(difflib.SequenceMatcher(None, img, exp).ratio() > 0.5 for exp in expected_images))
+    
+    if matches >= len(expected_images) / 2:
+        print("Check passed!")
+        exit(0)
+    else:
+        print("Check failed.")
+        exit(1)
 
 if __name__ == "__main__":
     main()
