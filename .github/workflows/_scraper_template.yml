@@ -29,15 +29,14 @@ jobs:
         source env/bin/activate
         pip install -r requirements.txt
 
-    - name: Run Test Script
+    - name: Run Scraper Script
       env:
-        # Load environment variables from GitHub secrets
         SCRAPE_URL: ${{ vars.SCRAPE_URL }}
       run: |
         source modules/_scraper_template/env/bin/activate
-        python modules/_scraper_template/test.py
+        python modules/_scraper_template/scraper.py
 
-  upload-to-supabase:
+  test-supabase-upload:
     runs-on: ubuntu-latest
     environment: template_scraper
 
@@ -57,11 +56,11 @@ jobs:
         source env/bin/activate
         pip install -r requirements.txt
 
-    - name: Upload Image to Supabase
+    - name: Test Supabase Upload
       env:
         SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
         SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
         BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
       run: |
         source modules/_scraper_template/env/bin/activate
-        python modules/_scraper_template/supabase/upload_to_supabase.py
+        python modules/_scraper_template/supabase/upload_image.py
