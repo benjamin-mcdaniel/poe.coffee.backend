@@ -58,9 +58,9 @@ jobs:
 
     - name: Test Supabase Upload
       env:
-        SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-        SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
-        BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
+        SUPABASE_URL: ${{ secrets.supabaseUrl }}
+        SUPABASE_KEY: ${{ secrets.supabaseKey }}
+        BUCKET_NAME: ${{ secrets.bucketName }}
       run: |
         source modules/_scraper_template/env/bin/activate
         python modules/_scraper_template/supabase/upload_image.py
